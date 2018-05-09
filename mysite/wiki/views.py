@@ -37,7 +37,7 @@ def get_page(title):
     Attempts to retrieve a page from its id.
 
     :param title: id of the page.
-    :return: page matching provided id or temporary blank page.
+    :return: page matching provided id or None.
     """
 
     page = None
@@ -50,10 +50,17 @@ def get_page(title):
     return page
 
 
-def get_page_or_create(query):
-    page = get_page(query)
+def get_page_or_create(title):
+    """
+    Attempts to retrieve a page from the provided id, otherwise returns
+    a new page with using the provided id as its title.
+
+    :param title: id of the page.
+    :return: page matching provided id or temporary blank page.
+    """
+    page = get_page(title)
 
     if page is None:
-        page = Page(page_title=query)
+        page = Page(page_title=title)
 
     return page
