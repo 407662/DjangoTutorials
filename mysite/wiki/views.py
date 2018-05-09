@@ -25,7 +25,7 @@ class EditView(generic.DetailView):
 
 
 def index(request):
-    return render(request, 'wiki/index.html', {'pages': Page.objects.all()})
+    return render(request, 'wiki/index.html', {'pages': Page.objects.order_by('page_title')})
 
 
 def view(request, title):
