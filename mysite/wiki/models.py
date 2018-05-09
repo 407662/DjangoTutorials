@@ -5,7 +5,7 @@ from django.utils import timezone
 
 
 class Page(models.Model):
-    page_title = models.CharField(max_length=100)
+    page_title = models.CharField(max_length=100, primary_key=True)
     page_contents = models.TextField()
     pub_date = models.DateTimeField('date published')
 
