@@ -1,19 +1,28 @@
 <!DOCTYPE html>
 <html>
     <title>Wiki | Edit - {{ page.page_title }}</title>
+
+    <style>
+        html {
+            font-family: 'tinymce', Arial, serif;
+        }
+    </style>
+
+    {% load static %}
+    <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+    <script>tinymce.init({ selector:'textarea' });</script>
 </html>
 <body>
     <h1>{{ page.page_title }}</h1>
-
-    <form method="post" action="{% url 'wiki:edit' page.page_title %}">
+    <hr>
+    <form method="post" action="{% url 'wiki:edit' page.page_title %}" style="padding-top: 15px;">
         {% csrf_token %}
 
         <label>
-            <input name="content" type="text">
-            {{ page.page_content }}
+            <textarea style="width: 750px; height: 100px;" name="content"></textarea>
         </label>
 
-        <button type="submit" name="cancel">Cancel</button>
-        <button type="submit" name="save">Save</button>
+        <button type="submit" name="save" style="margin-top: 10px;">Save</button>
+        <button type="submit" name="cancel" style="margin-top: 10px;">Cancel</button>
     </form>
 </body>
