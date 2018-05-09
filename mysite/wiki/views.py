@@ -32,6 +32,13 @@ def view(request, title):
 
 
 def get_page(input):
+    """
+    Attempts to retrieve a page from its id or title.
+
+    :param input: query for the page.
+    :return: page or None if it does not exist.
+    """
+
     ret_page = None
 
     # Attempt to find the page from the provided string "title",
@@ -48,7 +55,7 @@ def safe_parse(str_num):
     Attempts to parse a string into an integer, otherwise returns 0.
 
     :param str_num: string to parse.
-    :return:        parsed int, or 0 if it couldn't be parsed.
+    :return: parsed int, or 0 if it couldn't be parsed.
     """
 
     try:
