@@ -2,10 +2,17 @@
 <html>
     <head>
         <title>Wiki | {{ page.page_title|default:"Unnamed" }}</title>
+        <style>
+            html {
+                font-family: 'tinymce', Arial, serif;
+            }
+        </style>
+
     </head>
     <body>
         <h1>{{ page.page_title|default:"Unnamed" }}</h1>
+        <hr>
 
-        {{ page.page_contents|default:"This wiki has no contents." }}
+        {{ page.page_contents|safe|default:"This wiki has no contents." }}
     </body>
 </html>
