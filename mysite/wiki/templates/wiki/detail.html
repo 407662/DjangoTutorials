@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Wiki | {{ page.page_title|default:"Unnamed" }}</title>
+    </head>
+    <body>
+        <h1>{{ page.page_title|default:"Unnamed" }}</h1>
+
+        {{ page.page_contents|default:"This wiki has no contents." }}
+    </body>
+</html>

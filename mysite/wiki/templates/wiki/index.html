@@ -1,1 +1,9 @@
-<h1>hi guys</h1>
+{% if pages %}
+    <ul>
+    {% for page in pages %}
+        <li><a href="{% url 'wiki:detail' page.id %}">{{ page.page_title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No pages have been created.</p>
+{% endif %}
