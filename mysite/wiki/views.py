@@ -11,13 +11,13 @@ class EditView(generic.DetailView):
     context_object_name = 'page'
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'wiki/edit.html', {'page': get_page_or_create(self.kwargs['title'])})
+        return render(request, 'wiki/edit.html', {'page': get_page_or_temp(self.kwargs['title'])})
 
     def post(self, request, **kwargs):
         title = kwargs['title']
 
         if 'save' in request.POST:
-            page = Page.objects.get_or_create(page_title=title, pub_date=timezone.now())[0]
+            page = Page.objects.get_or_create(page_title=title, defaults={'pub_date': timezone.now()})[0]
             page.page_contents = request.POST['content']
             page.save()
 
@@ -50,7 +50,7 @@ def get_page(title):
     return page
 
 
-def get_page_or_create(title):
+def get_page_or_temp(title):
     """
     Attempts to retrieve a page from the provided id, otherwise returns
     a new page with using the provided id as its title.
