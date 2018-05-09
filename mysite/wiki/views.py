@@ -31,20 +31,20 @@ def view(request, title):
     return render(request, 'wiki/detail.html', {'page': get_page(title)})
 
 
-def get_page(input):
+def get_page(query):
     """
     Attempts to retrieve a page from its id or title.
 
-    :param input: query for the page.
+    :param query: query for the page.
     :return: page or None if it does not exist.
     """
 
     ret_page = None
 
-    # Attempt to find the page from the provided string "title",
+    # Attempt to find the page from the provided string "query",
     # either matching its id or title.
     for page in Page.objects.all():
-        if page.page_title == input or page.id == safe_parse(input):
+        if page.page_title == query or page.id == safe_parse(query):
             ret_page = page
 
     return ret_page
