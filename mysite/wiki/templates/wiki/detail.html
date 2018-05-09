@@ -13,6 +13,7 @@
         <h1>{{ page.page_title|default:"Unnamed" }}</h1>
         <hr>
 
-        {{ page.page_contents|safe|default:"This wiki has no contents." }}
+        {% load wiki_tags %}
+        {{ page.page_contents|wikify|safe|default:"This wiki has no contents." }}
     </body>
 </html>
