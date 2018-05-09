@@ -10,10 +10,9 @@ class EditView(generic.DetailView):
     context_object_name = 'page'
 
     def get(self, request, *args, **kwargs):
-        title = self.kwargs['title']
-        return render(request, 'wiki/edit.html', {'page': get_page(title)})
+        return render(request, 'wiki/edit.html', {'page': get_page(self.kwargs['title'])})
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, **kwargs):
         title = kwargs['title']
 
         if 'save' in request.POST:
