@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.utils import timezone
 from django.views import generic
 
 from wiki.models import Page
@@ -10,13 +11,13 @@ class EditView(generic.DetailView):
     context_object_name = 'page'
 
     def get(self, request, *args, **kwargs):
-        return render(request, 'wiki/edit.html', {'page': get_page(self.kwargs['title'])})
+        return render(request, 'wiki/edit.html', {'page': get_page_or_create(self.kwargs['title'])})
 
     def post(self, request, **kwargs):
         title = kwargs['title']
 
         if 'save' in request.POST:
-            page = Page.objects.get_or_create(page_title=title)[0]
+            page = Page.objects.get_or_create(page_title=title, pub_date=timezone.now())[0]
             page.page_contents = request.POST['content']
             page.save()
 
@@ -31,34 +32,28 @@ def view(request, title):
     return render(request, 'wiki/detail.html', {'page': get_page(title)})
 
 
-def get_page(query):
+def get_page(title):
     """
-    Attempts to retrieve a page from its id or title.
+    Attempts to retrieve a page from its id.
 
-    :param query: query for the page.
-    :return: page or None if it does not exist.
+    :param title: id of the page.
+    :return: page matching provided id or temporary blank page.
     """
 
-    ret_page = None
-
-    # Attempt to find the page from the provided string "query",
-    # either matching its id or title.
-    for page in Page.objects.all():
-        if page.page_title == query or page.id == safe_parse(query):
-            ret_page = page
-
-    return ret_page
-
-
-def safe_parse(str_num):
-    """
-    Attempts to parse a string into an integer, otherwise returns 0.
-
-    :param str_num: string to parse.
-    :return: parsed int, or 0 if it couldn't be parsed.
-    """
+    page = None
 
     try:
-        return int(str_num)
-    except (ValueError, TypeError):
-        return 0
+        page = Page.objects.get(page_title=title)
+    except Page.DoesNotExist:
+        pass
+
+    return page
+
+
+def get_page_or_create(query):
+    page = get_page(query)
+
+    if page is None:
+        page = Page(page_title=query)
+
+    return page
