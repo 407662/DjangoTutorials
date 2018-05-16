@@ -19,7 +19,7 @@
         {% csrf_token %}
 
         <label>
-            <textarea style="width: 750px; height: 100px;" name="content"></textarea>
+            <textarea style="width: 750px; height: 200px;" name="content">{{ page.page_contents }}</textarea>
         </label>
 
         <button type="submit" name="save" style="margin-top: 10px;">Save</button>
