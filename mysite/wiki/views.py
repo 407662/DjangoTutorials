@@ -1,6 +1,9 @@
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from django.views import generic
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 from wiki.models import Page
 
@@ -30,6 +33,31 @@ def index(request):
 
 def view(request, title):
     return render(request, 'wiki/detail.html', {'page': get_page(title)})
+
+
+def login_view(request):
+    if request.method == 'POST':
+        user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
+
+        if user is not None:
+            login(request, user)
+        # else: failed page
+    else:
+        return render(request, 'registration/login.html')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+
+        if form.is_valid():
+            user = User.objects.create_user(username=form.cleaned_data['username'],
+                                            password=form.cleaned_data['password1'])
+            user.save()
+            return redirect('wiki:login')
+    else:
+        form = UserCreationForm
+    return render(request, 'registration/register.html', {'form': form})
 
 
 def get_page(title):
