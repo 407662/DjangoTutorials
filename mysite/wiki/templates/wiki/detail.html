@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Wiki | {{ page.page_title|default:"Unnamed" }}</title>
-        <style>
-            html {
-                font-family: 'tinymce', Arial, serif;
-            }
-        </style>
+{% extends 'wiki/base.html' %}
+{% block content %}
+    <h1>{{ page.page_title|default:"Unnamed" }}</h1>
+    <hr>
 
-    </head>
-    <body>
-        <h1>{{ page.page_title|default:"Unnamed" }}</h1>
-        <hr>
-
-        {% load wiki_tags %}
-        {{ page.page_contents|wikify|safe|default:"This wiki has no contents." }}
-    </body>
-</html>
+    {% load wiki_tags %}
+    {{ page.page_contents|wikify|safe|default:"This wiki has no contents." }}
+{% endblock %}

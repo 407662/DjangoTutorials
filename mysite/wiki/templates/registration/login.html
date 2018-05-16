@@ -3,8 +3,8 @@
 {% block content %}
 <h1>Login</h1>
 <hr>
-{% if form.errors %}
-    <p>Your username and password didn't match. Please try again.</p>
+{% if form.error %}
+    <p>{{ form.error }}</p>
 {% endif %}
 
 {% if next %}
@@ -14,7 +14,6 @@
         <p>Please login to see this page.</p>
     {% endif %}
 {% endif %}
-
 
 <form method="post" action="{% url 'wiki:login' %}">
     {% csrf_token %}

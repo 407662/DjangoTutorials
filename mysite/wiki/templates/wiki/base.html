@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Wiki | Base</title>
+        <title>Wiki | {% block title %}{% endblock %}</title>
         <style>
             html {
                 font-family: 'tinymce', Arial, serif;
             }
         </style>
 
+        {% load static %}
+        <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
+        <script>tinymce.init({
+            selector: 'textarea',
+            plugins: 'image, autolink, autoresize, paste, preview, textcolor, colorpicker',
+            toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image | forecolor backcolor'
+        });</script>
     </head>
     <body>
+        {% if user.is_authenticated %}
+            <p><strong>Username:</strong> {{ user.username }}</p>
+        {% endif %}
         {% block content %}{% endblock %}
     </body>
 </html>
