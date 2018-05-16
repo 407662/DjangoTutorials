@@ -1,10 +1,13 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
+from wiki.forms import UserLoginForm
 from wiki.models import Page
 
 
@@ -13,6 +16,7 @@ class EditView(generic.DetailView):
     template_name = 'wiki/edit.html'
     context_object_name = 'page'
 
+    @method_decorator(login_required(login_url='/wiki/login'))
     def get(self, request, *args, **kwargs):
         return render(request, 'wiki/edit.html', {'page': get_page_or_temp(self.kwargs['title'])})
 
@@ -37,13 +41,23 @@ def view(request, title):
 
 def login_view(request):
     if request.method == 'POST':
+        form = UserLoginForm(request.POST)
         user = authenticate(request, username=request.POST['username'], password=request.POST['password'])
 
         if user is not None:
             login(request, user)
-        # else: failed page
+            next_page = request.POST['next']
+
+            if next_page is None or next_page is "":
+                next_page = '/wiki'
+
+            return redirect(next_page)
+        else:
+            form.error = 'Failed to log you in: authentication error.'
     else:
-        return render(request, 'registration/login.html')
+        form = UserLoginForm
+
+    return render(request, 'registration/login.html', {'form': form})
 
 
 def register(request):
