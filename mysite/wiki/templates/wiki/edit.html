@@ -10,7 +10,7 @@
 
     {% load static %}
     <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-    <script>tinymce.init({ selector:'textarea' });</script>
+    <script>tinymce.init({ selector: 'textarea', plugins: 'image' });</script>
 </html>
 <body>
     <h1>{{ page.page_title }}</h1>
