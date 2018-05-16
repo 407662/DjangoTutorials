@@ -10,7 +10,11 @@
 
     {% load static %}
     <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
-    <script>tinymce.init({ selector: 'textarea', plugins: 'image' });</script>
+    <script>tinymce.init({
+        selector: 'textarea',
+        plugins: 'image, autolink, autoresize, paste, preview, textcolor, colorpicker',
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image | forecolor backcolor'
+    });</script>
 </html>
 <body>
     <h1>{{ page.page_title }}</h1>
