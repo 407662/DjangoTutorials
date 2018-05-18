@@ -2,13 +2,10 @@
 <html>
     <head>
         <title>Wiki | {% block title %}{% endblock %}</title>
-        <style>
-            html {
-                font-family: 'tinymce', Arial, serif;
-            }
-        </style>
 
         {% load static %}
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
         <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
         <script>tinymce.init({
             selector: 'textarea',
@@ -17,9 +14,26 @@
         });</script>
     </head>
     <body>
-        {% if user.is_authenticated %}
-            <p><strong>Username:</strong>{{ user.username }}</p>
-        {% endif %}
-        {% block content %}{% endblock %}
+        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
+            <a class="navbar-brand">Wiki</a>
+            {% if user.is_authenticated %}
+                <!--<span class="navbar-text navbar-right">Username: {{ user.username }}</span>-->
+            {% endif %}
+            <div class="collapse navbar-collapse" id="nav-content">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'wiki:index' %}">Home</a>
+                    </li>
+                    {% if user.is_staff %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/">Admin</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        <div style="margin-top: 75px; margin-left: 10px;">
+            {% block content %}{% endblock %}
+        </div>
     </body>
 </html>
