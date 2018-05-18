@@ -1,0 +1,17 @@
+body {
+    font-family: 'tinymce', Arial, serif;
+    background: wheat;
+}
+
+/* Bootstrap overriding */
+.navbar-brand {
+    color: #F1F1F1 !important;
+}
+
+.navbar-right {
+    float: right !important;
+}
+
+a {
+    text-decoration: none !important;
+}
