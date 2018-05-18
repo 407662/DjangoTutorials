@@ -48,6 +48,8 @@ def login_view(request):
             login(request, user)
             next_page = request.POST['next']
 
+            # FIXME next_page always = ""
+
             if next_page is None or next_page is "":
                 next_page = '/wiki'
 
