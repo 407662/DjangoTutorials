@@ -1,15 +1,17 @@
 {% extends 'wiki/base.html' %}
-
+<head>
+    <title>{% block title %}Index{{ page.page_title }}{% endblock %}</title>
+</head>
 {% block content %}
 <h1>Index</h1>
 <hr>
 {% if pages %}
-<ul>
-{% for page in pages %}
-    <li><a href="{% url 'wiki:detail' page.page_title %}">{{ page.page_title }}</a></li>
-{% endfor %}
-</ul>
-{% else %}
-<p>No pages have been created.</p>
+    <ul>
+    {% for page in pages %}
+        <li><a href="{% url 'wiki:detail' page.page_title %}">{{ page.page_title }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No pages have been created.</p>
 {% endif %}
 {% endblock %}
