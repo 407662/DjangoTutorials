@@ -46,11 +46,12 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('/wiki')
+            return redirect(form.next)
         else:
             form.error = 'Failed to log you in: authentication error.'
     else:
         form = UserLoginForm
+        form.next = request.GET.get('next', '/wiki')
 
     return render(request, 'registration/login.html', {'form': form})
 
