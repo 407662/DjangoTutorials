@@ -9,5 +9,15 @@ body {
 }
 
 a {
+    /* Remove underline from links */
     text-decoration: none !important;
+    font-size: 15px;
+}
+
+hr {
+    background-color: #a4a4a4;
+    border: 0;
+    border-top: 1px solid;
+    margin: 1em 0;
+    padding: 0;
 }

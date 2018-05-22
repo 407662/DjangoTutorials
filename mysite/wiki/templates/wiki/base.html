@@ -4,11 +4,9 @@
         <title>Wiki | {% block title %}{% endblock %}</title>
 
         {% load static %}
-        <link rel="stylesheet"
-              href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css"
-              integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy"
-              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
 
         <script src="{% static 'js/tinymce/tinymce.min.js' %}"></script>
         <script>
@@ -20,12 +18,14 @@
         </script>
     </head>
     <body>
-        <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
-            <a class="navbar-brand">Wiki</a>
-            <div class="collapse navbar-collapse" id="nav-content">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'wiki:index' %}">Home</a>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid" style="background-color: #333333">
+                <div class="navbar-header">
+                    <span class="navbar-brand">Wiki</span>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="{% url 'wiki:index' %}">Home</a>
                     </li>
                     {% if user.is_staff %}
                     <li class="nav-item">
@@ -33,12 +33,27 @@
                     </li>
                     {% endif %}
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <span class="navbar-text" style="color: #ffffff">{{ user.username }}</span>
+                    </li>
+                    <li>
+                        <a href="{% url 'wiki:logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                    </li>
+
+                    {% else %}
+                    <li>
+                        <a href="{% url 'wiki:login' %}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'wiki:register' %}"><span class="glyphicon glyphicon-user"></span> Register</a>
+                    </li>
+                    {% endif %}
+                </ul>
             </div>
-            {% if user.is_authenticated %}
-                <span class="navbar-text">Username: {{ user.username }}</span>
-            {% endif %}
         </nav>
-        <div style="margin-top: 75px; margin-left: 10px;">
+        <div style="margin-top: 75px; margin-left: 10px; margin-right: 10px;">
             {% block content %}{% endblock %}
         </div>
     </body>
