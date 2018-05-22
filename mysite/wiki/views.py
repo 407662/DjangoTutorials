@@ -36,7 +36,7 @@ def index(request):
 
 
 def view(request, title):
-    return render(request, 'wiki/detail.html', {'page': get_page(title)})
+    return render(request, 'wiki/detail.html', {'page': get_page_or_temp(title)})
 
 
 def login_view(request):
@@ -46,14 +46,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            next_page = request.POST['next']
-
-            # FIXME next_page always = ""
-
-            if next_page is None or next_page is "":
-                next_page = '/wiki'
-
-            return redirect(next_page)
+            return redirect('/wiki')
         else:
             form.error = 'Failed to log you in: authentication error.'
     else:
