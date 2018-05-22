@@ -1,4 +1,7 @@
 {% extends 'wiki/base.html' %}
+<head>
+    <title>{% block title %}{{ page.page_title }}{% endblock %}</title>
+</head>
 {% block content %}
     <h1>{{ page.page_title|default:"Unnamed" }}</h1>
     {% if user.is_authenticated %}
