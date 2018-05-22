@@ -8,11 +8,14 @@
     <form method="post" action="{% url 'wiki:edit' page.page_title %}" style="padding-top: 15px;">
         {% csrf_token %}
 
-        <label>
-            <textarea style="width: 750px; height: 200px;" name="content">{{ page.page_contents }}</textarea>
-        </label>
-
-        <button type="submit" name="save" style="margin-top: 10px;">Save</button>
-        <button type="submit" style="margin-top: 10px;">Cancel</button>
+        <div>
+            <label>
+            <textarea style="width: 750px;" name="content">{{ page.page_contents }}</textarea>
+            </label>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-success" name="save" style="margin-top: 10px; margin-bottom: 10px;">Save</button>
+            <button type="submit" class="btn btn-danger" style="margin-top: 10px; margin-bottom: 10px;">Cancel</button>
+        </div>
     </form>
 {% endblock %}
