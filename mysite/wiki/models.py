@@ -10,12 +10,24 @@ class Page(models.Model):
     pub_date = models.DateTimeField('date published')
 
     def __str__(self):
+        """
+        :return: the page title.
+        """
+
         return self.page_title
 
     def was_published_recently(self):
+        """
+        Checks to see if the page was published recently. "Recently" being
+        within 1 day of the object creation time.
+
+        :return: True if the Page was published recently.
+        """
+
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
-    was_published_recently.admin_order_field = 'pub_date'
+    # Has to be after the was_published_recently method.
     was_published_recently.boolean = True
+    was_published_recently.admin_order_field = 'pub_date'
     was_published_recently.short_description = 'Published recently?'
