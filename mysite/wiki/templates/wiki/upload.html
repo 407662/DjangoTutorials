@@ -1,0 +1,27 @@
+{% extends 'wiki/base.html' %}
+<head>
+    <title>{% block title %}Upload{% endblock %}</title>
+</head>
+{% block content %}
+<h1>Upload</h1>
+<hr>
+<div class="center-block">
+    {% if files %}
+        <ul class="m-3 list-group">
+            {% for file in files %}
+                <li class="list-group-item"><a href="{{ file.content.url }}">{{ file.content.name }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No uploaded files :(</p>
+    {% endif %}
+
+    <section>
+        <form  method="POST" enctype="multipart/form-data" action="{% url 'wiki:upload' %}">
+            {% csrf_token %}
+            {{ form.content }}
+            <input style="margin-top: 10px;" class="btn btn-success" type="submit" value="Upload">
+        </form>
+    </section>
+</div>
+{% endblock %}
