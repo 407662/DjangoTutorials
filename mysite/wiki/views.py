@@ -7,8 +7,8 @@ from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views import generic
 
-from wiki.forms import UserLoginForm
-from wiki.models import Page
+from wiki.forms import UserLoginForm, FileUploadForm
+from wiki.models import Page, UploadedFile
 
 
 class EditView(generic.DetailView):
@@ -156,6 +156,18 @@ def register_view(request):
         form = UserCreationForm
 
     return render(request, 'registration/register.html', {'form': form})
+
+
+def upload_view(request):
+    if request.method == 'POST':
+        form = FileUploadForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            form.save()
+    else:
+        form = FileUploadForm()
+
+    return render(request, 'wiki/upload.html', {'form': form, 'files': UploadedFile.objects.all().order_by('content')})
 
 
 def get_page(title):
