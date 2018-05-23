@@ -57,7 +57,7 @@ class EditView(generic.DetailView):
         return redirect('wiki:detail', title)
 
 
-def index(request):
+def index_view(request):
     """
     Renders index.html, providing a QuerySet of all Page objects alphabetically
     ordered by their page_title.
@@ -69,7 +69,7 @@ def index(request):
     return render(request, 'wiki/index.html', {'pages': Page.objects.order_by('page_title')})
 
 
-def view(request, title):
+def detail_view(request, title):
     """
     Retrieves the requested page using the provided title. If the page does
     not exist, a page with no content and the title provided will be
@@ -131,7 +131,7 @@ def logout_view(request):
     return render(request, 'registration/logout.html', {'success': success})
 
 
-def register(request):
+def register_view(request):
     """
     On GET returns an empty UserCreationForm. On POST, attempts to create
     a user with create_user. Existing user, weak passwords and parsing is
