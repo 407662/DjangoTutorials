@@ -33,7 +33,7 @@ class Page(models.Model):
     was_published_recently.short_description = 'Published recently?'
 
 
-class UploadFile(models.Model):
+class UploadedFile(models.Model):
     content = models.FileField(upload_to='uploads/')
 
     def __str__(self):
