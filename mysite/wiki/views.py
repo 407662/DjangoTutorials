@@ -33,7 +33,8 @@ class EditView(generic.DetailView):
 
         return render(request, 'wiki/edit.html', {'page': get_page_or_temp(self.kwargs['title'])})
 
-    def post(self, request, **kwargs):
+    @staticmethod
+    def post(request, **kwargs):
         """
         Retrieves or creates a Page object using the provided title
         and sets page_contents with the provided content. The page is
