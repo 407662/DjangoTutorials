@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils import timezone
@@ -54,6 +54,15 @@ def login_view(request):
         form.next = request.GET.get('next', '/wiki')
 
     return render(request, 'registration/login.html', {'form': form})
+
+
+def logout_view(request):
+    success = request.user.is_authenticated
+
+    if success:
+        logout(request)
+
+    return render(request, 'registration/logout.html', {'success': success})
 
 
 def register(request):
