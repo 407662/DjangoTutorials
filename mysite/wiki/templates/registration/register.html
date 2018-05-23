@@ -1,38 +1,40 @@
 {% extends 'wiki/base.html' %}
-
+<head>
+    <title>{% block title %}Register{% endblock %}</title>
+</head>
 {% block content %}
-<h1>Register</h1>
-<hr>
+    <h1>Register</h1>
+    <hr>
 
-{% if form.errors %}
-    <p>Failed to create account due to the following:</p>
-    {{ form.username.errors }}
-    {{ form.password1.errors }}
-    {{ form.password2.errors }}
-{% endif %}
+    {% if form.errors %}
+        <p>Failed to create account due to the following:</p>
+        {{ form.username.errors }}
+        {{ form.password1.errors }}
+        {{ form.password2.errors }}
+    {% endif %}
 
-{% if user.is_authenticated %}
-    <p>You are already logged in.</p>
-{% else %}
-    <form class="form-registration" method="post" action="{% url 'wiki:register' %}">
-        {% csrf_token %}
+    {% if user.is_authenticated %}
+        <p>You are already logged in.</p>
+    {% else %}
+        <form class="form-registration" method="post" action="{% url 'wiki:register' %}">
+            {% csrf_token %}
 
-        {{ form.non_field_errors }}
-        <div>
-            <label for="{{ form.username.id_for_label }}">Username</label>
-            <div>{{ form.username }}</div>
-        </div>
-        <div>
-            <label for="{{ form.password1.id_for_label }}">Password</label>
-            <div>{{ form.password1 }}</div>
-        </div>
-        <div>
-            <label for="{{ form.password2.id_for_label }}">Repeat Password</label>
-            <div>{{ form.password2 }}</div>
-        </div>
+            {{ form.non_field_errors }}
+            <div>
+                <label for="{{ form.username.id_for_label }}">Username</label>
+                <div>{{ form.username }}</div>
+            </div>
+            <div>
+                <label for="{{ form.password1.id_for_label }}">Password</label>
+                <div>{{ form.password1 }}</div>
+            </div>
+            <div>
+                <label for="{{ form.password2.id_for_label }}">Repeat Password</label>
+                <div>{{ form.password2 }}</div>
+            </div>
 
-        <hr>
-        <input class="btn btn-primary" type="submit" value="Create Account" />
-    </form>
-{% endif %}
+            <hr>
+            <input class="btn btn-primary" type="submit" value="Create Account" />
+        </form>
+    {% endif %}
 {% endblock %}
