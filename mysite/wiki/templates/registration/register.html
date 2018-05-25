@@ -4,7 +4,7 @@
 </head>
 {% block content %}
     <h1>Register</h1>
-    <hr>
+
 
     {% if form.errors %}
         <p>Failed to create account due to the following:</p>
@@ -33,7 +33,7 @@
                 <div>{{ form.password2 }}</div>
             </div>
 
-            <hr>
+
             <input class="btn btn-primary" type="submit" value="Create Account" />
         </form>
     {% endif %}

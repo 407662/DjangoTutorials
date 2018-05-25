@@ -16,36 +16,14 @@ class EditView(generic.DetailView):
     template_name = 'wiki/edit.html'
     context_object_name = 'page'
 
-    @method_decorator(login_required(login_url='/wiki/login'))
     def get(self, request, *args, **kwargs):
-        """
-        Using the login_required method decorator, the requester's user
-        authentication is checked before the method is called. If not
-        authenticated they will be redirected to the login page.
-
-        Retrieves the requested page using the provided title. If the page
-        does not exist, a page with no content and the title provided will
-        be rendered, but not stored.
-
-        :param request: page requester.
-        :return: rendered GET HttpResponse of edit.html.
-        """
+        if not request.user.is_authenticated:
+            return redirect('wiki:login')
 
         return render(request, 'wiki/edit.html', {'page': get_page_or_temp(self.kwargs['title'])})
 
     @staticmethod
     def post(request, **kwargs):
-        """
-        Retrieves or creates a Page object using the provided title
-        and sets page_contents with the provided content. The page is
-        saved whether or not the page existed or if the content had
-        been changed.
-
-        Redirects to the provided wiki's detail page.
-
-        :param request: page requester.
-        :return: rendered POST HttpResponse of edit.html.
-        """
 
         title = kwargs['title']
 

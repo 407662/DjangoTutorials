@@ -4,7 +4,6 @@
 </head>
 {% block content %}
 <h1>Login</h1>
-<hr>
 {% if form.error %}
     <p>{{ form.error }}</p>
 {% endif %}
@@ -22,7 +21,6 @@
             <label for="{{ form.password.id_for_label }}">Password</label>
             <div>{{ form.password }}</div>
         </div>
-        <hr>
         <input class="btn btn-primary" type="submit" value="Login" />
         <input type="hidden" name="next" value="{{ next }}" />
     </form>

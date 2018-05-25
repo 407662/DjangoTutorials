@@ -1,23 +1,4 @@
 body {
-    font-family: 'tinymce', Arial, serif;
-    background: wheat;
-}
-
-/* Bootstrap overriding */
-.navbar-brand {
-    color: #F1F1F1 !important;
-}
-
-a {
-    /* Remove underline from links */
-    text-decoration: none !important;
-    font-size: 15px;
-}
-
-hr {
-    background-color: #a4a4a4;
-    border: 0;
-    border-top: 1px solid;
-    margin: 1em 0;
-    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#91bbe9;
 }
