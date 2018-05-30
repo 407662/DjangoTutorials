@@ -44,7 +44,7 @@ def index_view(request):
     :return: rendered HttpResponse of register.html.
     """
 
-    return render(request, 'wiki/index.html', {'pages': Page.objects.order_by('page_title')})
+    return render(request, 'wiki/index.html', {'pages': Page.objects.order_by('page_title'), "browser": request.META["HTTP_USER_AGENT"]})
 
 
 def detail_view(request, title):
@@ -58,7 +58,11 @@ def detail_view(request, title):
     :return: rendered HttpResponse of detail.html.
     """
 
-    return render(request, 'wiki/detail.html', {'page': get_page_or_temp(title)})
+    page = get_page_or_temp(title)
+    page.hits += 1
+    page.save()
+
+    return render(request, 'wiki/detail.html', {'page': page})
 
 
 def login_view(request):
@@ -180,3 +184,6 @@ def get_page_or_temp(title):
         page = Page(page_title=title)
 
     return page
+
+
+
