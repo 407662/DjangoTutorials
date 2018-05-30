@@ -2,6 +2,8 @@
 <html>
     <head>
         <title>Wiki | {% block title %}{% endblock %}</title>
+        {% load staticfiles %}
+        <link rel="shortcut icon" href="{%  static 'favicon/favicon.ico' %}">
 
         {% load static %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
