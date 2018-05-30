@@ -4,6 +4,7 @@
 </head>
 {% block content %}
     <h1>{{ page.page_title|default:"Unnamed" }}</h1>
+    <h2>HITS:{{ page.hits }}</h2>
     {% if user.is_authenticated %}
         <button class="btn btn-primary"
                 onclick="location.href = '{% url 'wiki:edit' title=page.page_title %}';">Edit</button>
