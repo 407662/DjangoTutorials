@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    '172.18.32.28'
+    '172.18.32.37'
 ]
 
 # Application definition
@@ -77,6 +77,40 @@ TEMPLATES = [
         },
     },
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'filters': {
+        'filter_skip_not_404_or_500': {
+            '()': 'wiki.filters.UserFilter',
+        }
+    },
+    'formatters': {
+        'formatter_filter_skip_not_404_or_500': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'filters': ['filter_skip_not_404_or_500'],
+            'formatter': 'formatter_filter_skip_not_404_or_500',
+            'level': 'WARNING',
+            'class': 'logging.FileHandler',
+            'filename': os.path.join(BASE_DIR, 'debug.log'),
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': True,
+        }
+    }
+}
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
